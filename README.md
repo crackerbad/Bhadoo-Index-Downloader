@@ -7,7 +7,7 @@ More about bhadoo Google Personal/Shared Drive Index : https://gitlab.com/Parvee
 
 ## Usage
 ```
-usage: python index-strm.py [-h] -u URL [-o OUTPUT]
+usage: python index-scrapy.py [-h] -u URL [-o OUTPUT]
 STRM Generator.
 
 required arguments:
