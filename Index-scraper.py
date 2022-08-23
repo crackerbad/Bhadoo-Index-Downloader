@@ -1,11 +1,24 @@
+import argparse
 import requests
 import base64 
 import json
 import urllib
+import os
+
 next_page = False
 next_page_token = "" 
 
-  
+parser = argparse.ArgumentParser(description='STRM Generator.')
+parser.add_argument('-u', '--url', help='url from index', required=True)
+parser.add_argument('-o', '--output', help='output folder', required=False)
+args = parser.parse_args()
+
+OUTPUT_DIR = args.output if args.output else "STRM"
+isExist = os.path.exists(OUTPUT_DIR)
+if not isExist:
+	os.makedirs(OUTPUT_DIR)
+	print(f"\n{OUTPUT_DIR} directory created!")
+
  
 def authorization_token(username, password):
 	 user_pass = f"{username}:{password}"
@@ -54,14 +67,17 @@ def func(payload_input, url, username, password):
 	        if files_type == "application/vnd.google-apps.folder": pass
 	        else:
 	            direct_download_link = url + urllib.parse.quote(files_name)
-	            result += f"• {files_name}:-\n{direct_download_link}\n\n"
+	            result += f"{files_name}.strm - Successfully created in {OUTPUT_DIR} Folder.\n"
+	            #create strmfiles
+	            strmfile = open(f"{OUTPUT_DIR}/{files_name}.strm", "w")
+	            strmfile.write(f"{direct_download_link}")
       return result
-	        
+       
 	
 def main(url, username="none", password="none"):
 	x = 0
 	payload = {"page_token":next_page_token, "page_index": x}	
-	print(f"Index Link: {url}\n\n")
+	print(f"\n\nGenerating STRM files from: {url}\n\n")
 	print(func(payload, url, username, password))
 	
 	while next_page == True:
@@ -70,7 +86,7 @@ def main(url, username="none", password="none"):
 		x += 1
 		
 
-index_link = "https://anime.anipirates.workers.dev/0:/Breaking%20Bad%20(2008)%20Season%201-5%20S01-S05%20(1080p%20BluRay%20x265%20HEVC%2010bit%20AAC%205.1%20Silence)/Season%201/"
+index_link = args.url
 username = "username-default" #optional
 password ="password-default"  #optional
 				
