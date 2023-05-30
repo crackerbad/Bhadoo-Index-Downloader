@@ -116,6 +116,7 @@ def remove_duplicates(file_path):
         print(f"File '{file_path}' not found.")
         return
 
+
     with open(file_path, "r") as txt_file:
         lines = txt_file.read().splitlines()
 
@@ -159,7 +160,6 @@ def main(url, username="none", password="none"):
 def download_files_from_list():
     try:
         print("\nStarting Downloads with aria2c...")
-        list_file = list_folder + '/download_list.txt'
         subprocess.run(['aria2c', "--dir=" + OUTPUT_DIR, "--input-file=" + list_file, "--max-concurrent-downloads=3",
             "--connect-timeout=60", "--max-connection-per-server=8", "--continue=true", "--split=8", "--min-split-size=1M",
             "--human-readable=true", "--download-result=full", "--file-allocation=none", "--auto-save-interval=0"])
