@@ -1,5 +1,4 @@
-
-# Index Downloader
+# Bhadoo Google Drive Index Downloader
 
 This script is a Python program that facilitates downloading files from an [Google Drive Index](https://gitlab.com/GoogleDriveIndex/Google-Drive-Index). It interacts with the specified index link, retrieves the file information, and downloads the files using the Aria2c download manager.
 
