@@ -1,26 +1,43 @@
-# bhadoo Google Personal/Shared Drive Index STRM Generator.
 
-A small script to scrape direct download links (ddls) of downloadable files from bhadoo google drive index and generate STRM files.
+# Index Downloader
 
+This script is a Python program that facilitates downloading files from an [Google Drive Index](https://gitlab.com/GoogleDriveIndex/Google-Drive-Index). It interacts with the specified index link, retrieves the file information, and downloads the files using the Aria2c download manager.
 
-More about bhadoo Google Personal/Shared Drive Index : https://gitlab.com/ParveenBhadooOfficial/Google-Drive-Index
+### Credits
+Credit goes to [sanjit-sinha](https://github.com/sanjit-sinha) for creating the [Bhadoo-Index-Scraper](https://github.com/sanjit-sinha/Bhadoo-Index-Scraper), which served as the basis for this script.
+
+## Prerequisites
+
+Before running the script, ensure that you have the following prerequisites:
+
+- Python 3.x installed on your system.
+- Aria2c installed on your system. Or download the executable from [Aria2 Repository](https://github.com/aria2/aria2/releases).
 
 ## Usage
+
+To use the Index Downloader script, follow these steps:
+
+1. Clone or download the script to your local machine.
+
+2. Open a terminal or command prompt and navigate to the script's directory.
+
+3. Run the script using the following command:
 ```
-usage: python index-scraper.py [-h] -u URL [-o OUTPUT]
-STRM Generator.
-
-required arguments:
-  -u URL, --url URL index url
-  
-optional arguments:
-  -h, --help         
-  -o OUTPUT, --output OUTPUT
-                        output folder. Should work for either relative or absolute paths (Win/*nix)
+python index_downloader.py -i <index_link> [-o <output_folder>] [-u <username>] [-p <password>]
 ```
 
-## Screenshots
+Replace `<index_link>` with the URL of the index you want to download files from.
 
-![App Screenshot](https://i.imgur.com/o0RB8Yg.png?text=example)
+Optional arguments:
+- `-o, --output <output_folder>`: Specify the output folder where the downloaded files will be saved. If not provided, a folder named "Download" will be created in the current directory.
+- `-u, --user <username>`: Provide a username for the index if it requires authentication. If not provided, a default username will be used.
+- `-p, --password <password>`: Provide a password for the index if it requires authentication. If not provided, a default password will be used.
 
- • (Username, Password) protected link can also be scraped by providing respective value in script.
+Example usage:
+```
+python index_downloader.py -i http://example.workers.dev/0:/folder/ -o OUTPUT_FOLDER/ -u myusername -p mypassword
+```
+
+4. The script will start retrieving the file information from the index. It will display the progress and status of the process in the console.
+
+5. Once the file information is retrieved, the script will start downloading the files using Aria2c. The downloaded files will be saved in the specified output folder or the default "Download" folder.
