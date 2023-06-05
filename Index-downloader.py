@@ -27,6 +27,7 @@ parser.add_argument('-i', '--index', help='index link', required=True)
 parser.add_argument('-o', '--output', help='output folder (optional)', required=False)
 parser.add_argument('-u', '--user', help='index username (optional)', required=False)
 parser.add_argument('-p', '--password', help='index password (optional)', required=False)
+parser.add_argument('-s', '--simul', help='Number of simultaneous downloads (default=1)', required=False)
 args = parser.parse_args()
 
 print("\nStarting Index Downloader...\n")
@@ -55,7 +56,7 @@ def func(payload_input, url, username, password):
     url = f"{url}/" if url[-1] != "/" else url
 
     try:
-        headers = {"authorization": authorization_token(username, password)}
+        headers = {"authorization": authorization_token(username, password), "Referer": index_link}
     except:
         return "username/password combination is wrong"
 
@@ -167,8 +168,13 @@ def main(url, username="none", password="none"):
 def download_files_from_list():
     try:
         print("\nStarting Downloads with aria2c...")
-        subprocess.run(['aria2c', "--dir=" + OUTPUT_DIR, "--input-file=" + list_file, "--max-concurrent-downloads=3",
-            "--connect-timeout=60", "--max-connection-per-server=4", "--continue=true", "--split=4", "--min-split-size=1M",
+        simuldown = args.simul if args.simul else "1"
+        if simuldown == "1":
+            maxc_and_split = "16"
+        else:
+            maxc_and_split = "4"
+        subprocess.run(['aria2c', "--dir=" + OUTPUT_DIR, "--input-file=" + list_file, "--max-concurrent-downloads=" + simuldown,
+            "--connect-timeout=60", "--max-connection-per-server=" + maxc_and_split, "--continue=true", "--split=" + maxc_and_split, "--min-split-size=1M",
             "--human-readable=true", "--download-result=full", "--file-allocation=none", "--auto-save-interval=0"])
         if os.path.exists(list_file):
             os.remove(list_file)
