@@ -29,6 +29,7 @@ Replace `<index_link>` with the URL of the index you want to download files from
 
 Optional arguments:
 - `-o, --output <output_folder>`: Specify the output folder where the downloaded files will be saved. If not provided, a folder named "Download" will be created in the current directory.
+- `-s, --simul <number>`: Specify the number of download simultaneous. If not provided, a default number(1) will be used.
 - `-u, --user <username>`: Provide a username for the index if it requires authentication. If not provided, a default username will be used.
 - `-p, --password <password>`: Provide a password for the index if it requires authentication. If not provided, a default password will be used.
 
@@ -36,6 +37,8 @@ Example usage:
 ```
 python index_downloader.py -i http://example.workers.dev/0:/folder/ -o OUTPUT_FOLDER/ -u myusername -p mypassword
 ```
+Please ensure that ```protect_file_link``` is disabled in the settings of your index, otherwise errors may occur when attempting to download the files.
+
 
 4. The script will start retrieving the file information from the index. It will display the progress and status of the process in the console.
 
